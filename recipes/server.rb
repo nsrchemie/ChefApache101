@@ -10,7 +10,9 @@ package 'httpd' do
 end
 
 file '/var/www/html/index.html' do
-  content '<h2>Hello World!</h2>'
+  content "<h2>Hello World!</h2>
+	<p>Your IP Address is: #{node['ipaddress']}</p>
+	<p>Hostname: #{node['ipaddress']}</p>"
 end
 
 service 'httpd' do
