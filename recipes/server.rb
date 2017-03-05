@@ -3,7 +3,9 @@
 # Recipe:: server
 #
 # Copyright (c) 2017 The Authors, All Rights Reserved.
-
+#notifies :action, 'resource[name]', :timer
+#subscribes :action, 'resource[name]', :timer
+#:before,:delayed,:immediately
 
 package 'httpd' do
   action :install
@@ -16,8 +18,10 @@ end
 template '/var/www/html/index.html' do
   source 'index.erb'
   action :create
+  notifies :restart, 'service[httpd]', :immediately
 end
 
 service 'httpd' do
   action [:enable, :start]
 end
+
